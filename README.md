@@ -36,4 +36,4 @@ data = [{
       }
 ```
 
-<img width="685" alt="screen shot 2017-08-26 at 12 19 44" src="https://user-images.githubusercontent.com/17167992/29740869-ec70b1ca-8a58-11e7-9266-cc369402606f.png">
+<img width="684" alt="screen shot 2017-08-26 at 12 29 34" src="https://user-images.githubusercontent.com/17167992/29740931-484e1c5c-8a5a-11e7-8345-5e12c8fa61d0.png">
