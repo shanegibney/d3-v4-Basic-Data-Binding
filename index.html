@@ -84,7 +84,7 @@
         return x(d.x_pos)
       })
       .attr("y", function(d) {
-        return y(d.y_pos)
+        return height - y(d.y_pos)
       })
       .attr("rx", "5px")
       .attr("width", 50)
@@ -99,7 +99,7 @@
         return x(d.x_pos)
       })
       .attr("y", function(d) {
-        return y(d.y_pos)
+        return height - y(d.y_pos)
       })
       .attr("dx", "0.5em")
       .attr("dy", "1.0em")
@@ -115,7 +115,7 @@
         return x(d.x_pos)
       })
       .attr("y", function(d) {
-        return y(d.y_pos)
+        return height - y(d.y_pos)
       })
       .attr("dx", "-2.5em")
       .attr("dy", "-.5em")
