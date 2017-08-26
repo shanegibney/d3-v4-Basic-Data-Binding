@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+  <style>
+    svg {
+      border: 2px solid gray;
+    }
+  </style>
+  <div id="box">
+  </div>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script>
+    data = [{
+        "x_pos": "100",
+        "y_pos": "400",
+        "name": "Aa"
+      },
+      {
+        "x_pos": "200",
+        "y_pos": "200",
+        "name": "Bb"
+      },
+      {
+        "x_pos": "300",
+        "y_pos": "100",
+        "name": "Cc"
+      },
+      {
+        // "x_pos": "300",
+        "x_pos": "525",
+        "y_pos": "300",
+        "name": "Dd"
+      },
+      {
+        "x_pos": "0",
+        "y_pos": "0",
+        "name": "Ee"
+      }
+    ]
+
+    data.forEach(function(d) {
+      d.x_pos = +d.x_pos;
+      d.y_pos = +d.y_pos;
+    });
+
+    var margin = {
+        top: 50,
+        right: 50,
+        bottom: 50,
+        left: 50
+      },
+      width = 600 - margin.left - margin.right, // width=500
+      height = 600 - margin.top - margin.bottom; // height=500
+
+    var x = d3.scaleLinear()
+      .domain(0, d3.max(function(d) {
+        return d.x_pos
+      })).range([0, width]);
+
+    var y = d3.scaleLinear()
+      .domain([0, d3.max(data, function(d) {
+        return d.y_pos
+      })]).range([height, 0]);
+
+    var svg = d3.select("#box")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom);
+
+    // create group
+    var group = svg.append("g")
+      .attr("class", "main_group")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // bind the data
+    var boxes = group.selectAll("boxes")
+      .data(data)
+      .enter();
+
+    // add rects
+    boxes.append("rect")
+      .attr("class", "boxes")
+      .attr("x", function(d) {
+        return d.x_pos
+      })
+      .attr("y", function(d) {
+        return d.y_pos
+      })
+      .attr("rx", "5px")
+      .attr("width", 60)
+      .attr("height", 20)
+      .attr("stroke", "darkgray")
+      .attr("fill", "lightblue");
+
+    // add text
+    boxes.append("text")
+      .attr("class", "legend_text")
+      .attr("x", function(d) {
+        return d.x_pos
+      })
+      .attr("y", function(d) {
+        return d.y_pos
+      })
+      .attr("dx", "0.5em")
+      .attr("dy", "1.0em")
+      .style("font-weight", "bold")
+      .text(function(d) {
+        return d.name;
+      });
+
+    // add text coordinates
+    boxes.append("text")
+      .attr("class", "legend_text")
+      .attr("x", function(d) {
+        return d.x_pos
+      })
+      .attr("y", function(d) {
+        return d.y_pos
+      })
+      .attr("dx", "-2.5em")
+      .attr("dy", "-.5em")
+      .style("font-weight", "bold")
+      .text(function(d) {
+        return "(" + d.x_pos + ", " + d.y_pos + ")";
+      });
+  </script>
