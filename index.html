@@ -6,8 +6,14 @@
     svg {
       border: 2px solid gray;
     }
+
+    div {
+      display: inline-block;
+    }
   </style>
   <div id="box">
+  </div>
+  <div id="json">
   </div>
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script>
@@ -38,6 +44,9 @@
       }
     ]
 
+    // To display json in html page
+    document.getElementById("json").innerHTML = "<pre>" + JSON.stringify(data, null, 4) + "</pre>";
+
     data.forEach(function(d) {
       d.x_pos = +d.x_pos;
       d.y_pos = +d.y_pos;
@@ -52,12 +61,12 @@
       width = 600 - margin.left - margin.right, // width=500
       height = 600 - margin.top - margin.bottom; // height=500
 
-    var x = d3.scaleLinear()
+    var xScale = d3.scaleLinear()
       .domain([0, d3.max(data, function(d) {
         return d.x_pos
       })]).range([0, width]);
 
-    var y = d3.scaleLinear()
+    var yScale = d3.scaleLinear()
       .domain([0, d3.max(data, function(d) {
         return d.y_pos
       })]).range([height, 0]);
@@ -81,10 +90,10 @@
     boxes.append("rect")
       .attr("class", "boxes")
       .attr("x", function(d) {
-        return x(d.x_pos)
+        return xScale(d.x_pos)
       })
       .attr("y", function(d) {
-        return height - y(d.y_pos)
+        return height - yScale(d.y_pos)
       })
       .attr("rx", "5px")
       .attr("width", 50)
@@ -96,10 +105,10 @@
     boxes.append("text")
       .attr("class", "legend_text")
       .attr("x", function(d) {
-        return x(d.x_pos)
+        return xScale(d.x_pos)
       })
       .attr("y", function(d) {
-        return height - y(d.y_pos)
+        return height - yScale(d.y_pos)
       })
       .attr("dx", "0.5em")
       .attr("dy", "1.0em")
@@ -112,10 +121,10 @@
     boxes.append("text")
       .attr("class", "legend_text")
       .attr("x", function(d) {
-        return x(d.x_pos)
+        return xScale(d.x_pos)
       })
       .attr("y", function(d) {
-        return height - y(d.y_pos)
+        return height - yScale(d.y_pos)
       })
       .attr("dx", "-2.5em")
       .attr("dy", "-.5em")
